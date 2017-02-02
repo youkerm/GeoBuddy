@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	
+	<title>GeoBuddy</title>
+	
+	<link rel="icon" type="image/png" href="res/img/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="res/img/favicon-16x16.png" sizes="16x16" />
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="res/js/vendor/uuid.js"></script>
+	<script src="res/js/vendor/FileSaver/FileSaver.min.js"></script>
+	<script src="res/js/wrappers.js"></script>
+	<script src="res/js/map.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT45rRWrInr_3-EhZ08KrBr64QqvN5xFw&libraries=places&callback=initAutocomplete" async defer></script>
+	
+	<link rel="stylesheet" type="text/css" href="res/css/style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+	<div id="map-canvas"></div>
+	
+	<div class="container" style="width:98%;padding-top:1%;">
+	  <div class="row">
+		<div class="col-lg-4">
+		  <div class="input-group">
+		    <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+			<input id="location_input" type="text" class="form-control" placeholder="Syracuse, NY" style="width:250px;background-color:#FFF;" readonly/>
+		  </div>
+		  <div class="input-group" style="margin-top:5px;">
+		    <span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span>
+			<input id="geocoords" type="text" class="form-control" placeholder="43.050017, -76.148208" style="width:250px;background-color:#FFF;" readonly/>
+		  </div>
+		</div>
+			
+		<div class="col-lg-4" style="text-align:center;">
+		  <div class="btn-group" data-toggle="buttons">
+		    <label class="btn btn-primary active">
+			  <input type="radio" name="mode" id="whitelist" autocomplete="off" checked> Whitelist
+			</label>
+			<label class="btn btn-primary disabled">
+			  <input type="radio" name="mode" id="blacklist" autocomplete="off" disabled> Blacklist
+		    </label>
+		  </div>
+		  <br>
+		  <div class="btn-group" data-toggle="buttons" style="margin-top:10px;">
+		    <label class="btn btn-primary active">
+			  <input type="radio" name="options" id="select" autocomplete="off" checked> Select
+			</label>
+			<label class="btn btn-primary">
+			  <input type="radio" name="options" id="add" autocomplete="off"> Add
+		    </label>
+			<label class="btn btn-primary">
+			  <input type="radio" name="options" id="delete" autocomplete="off"> Delete
+			</label>
+		  </div>
+		</div>
+			
+		<div class="col-lg-4">
+		  <input id="save" type="Button" class="btn btn-primary btn-sm" style="width:100px;float:right;margin-left:10px;" value="Save"/>
+		  
+		  <div style="float: right;">
+		    <label class="btn btn-primary btn-sm" id="loadXML" style="width:100px;">
+			  Load (XML) <input id="files" style="display:none;" accept=".xml" type="file"/>
+		    </label>
+			<br>
+			<input type="Button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#generateModal" style="width:100px;margin-top:10px;" value="Generate Map"/>		  
+		  </div>
+		</div>
+	  </div>
+    </div>
+	
+	<div id="generateModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+		<!-- Modal content-->
+	    <div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Generate Map</h4>
+		  </div>
+		  <div class="modal-body" style="padding: 30px 40px;">
+		    <p style="color:red;">Warning! This will overwrite your previous map. Please save your work if you haven't done so already.</p>
+			<br>
+			<div class="form-group">
+			  <label for="big_parts">Number of Big Segments: </label>
+			  <div class="input-group">
+		        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+			    <input id="big_parts" class="form-control" type="number" style="width: 75px;"value="30" min="10" max="50">
+			  </div>
+			</div>
+		    <br>
+			<div class="form-group">
+			  <label for="small_parts">Number of Small Segments: </label>
+			  <div class="input-group">
+		        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+			    <input id="small_parts" class="form-control" type="number" style="width: 75px;"value="10" min="5" max="30">
+			  </div>
+			</div>
+			<center><input id="generate" type="Button" class="btn btn-danger btn-sm" style="width:100px;" data-dismiss="modal" value="Generate"/></center>
+		  </div>
+		</div>
+      </div>
+	</div>
+	
+  </body>
+</html>
